@@ -1,0 +1,107 @@
+<HTML><HEAD><TITLE>Resource {activityUUID}</TITLE></TITLE><LINK REL='stylesheet' TYPE='text/css' HREF='../../../../doclet.css' TITLE='Style'/><META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</HEAD><BODY><table class='menu'><colgroup><col/><col/></colgroup><tbody><tr><td class='NavBarCell1' colspan='2'><table><tbody><tr><th><a href='../../../../overview-summary.html'>Overview</a></th><th><a href='../../../../overview-index.html'>Index</a></th><th><a href='../../../../index.html'>Root resource</a></th></tr></tbody></table></td></tr><tr><td class='NavBarCell3'>summary: resource | <a href='#methods-summary'>method</a></td><td class='NavBarCell3'>detail: <a href='#methods-details'>method</a></td></tr></table><h2>Path: <a href='../../../../index.html'>/</a> <a href='../../../index.html'>API</a> / <a href='../../index.html'>runtimeAPI</a> / <a href='../index.html'>setVariable</a> / {activityUUID}</h2><p>
+ Searches for variable with id variableId within the given activity instance
+ with the given UUID.<br>
+ If the variable is found within the activity, the given value is set.<br>
+ If the variable is not found within the activity the search is performed
+ within the process instance.<br>
+ If the variable is found within the process instance, the given value is set.
+ </p>
+ <p>
+ <i>For XML data</i><br/>
+ Here is the effect of set variable for XML data:
+ <table border="1">
+ <tr><td></td><td>String</td><td>Document</td><td>Element</td><td>Attribute</td></tr>
+ <tr>
+        <td>"myXmlData"</td>
+        <td>Stores content of XML String into myXmlData</td>
+        <td>Stores a copy of Document in myXMLData</td>
+        <td>Not supported</td>
+        <td>Not supported</td>
+ </tr>
+ <tr>
+        <td>"myXmlData" + <CODE>BonitaConstants.XPATH_VAR_SEPARATOR</CODE> + "/root/node" (or any XPath expression resolving to an element</td>
+        <td>Creates Node from string, and replace node by new node</td>
+        <td>Not supported</td>
+        <td>Replace node by new element</td>
+        <td>Adds attribute to node</td>
+ </tr>
+        <td>"myXmlData" + <CODE>BonitaConstants.XPATH_VAR_SEPARATOR</CODE> + "/root/node/text()"</td>
+        <td>Sets text content of node</td>
+        <td>Not supported</td>
+        <td>Not supported</td>
+        <td>Not supported</td>
+ </tr>
+ <tr>
+        <td>"myXmlData" + <CODE>BonitaConstants.XPATH_VAR_SEPARATOR</CODE> + "/root/@attribute"</td>
+        <td>Sets the value of attribute. Create it if it does not exist</td>
+        <td>Not supported</td>
+        <td>Not supported</td>
+        <td>Sets the value of attribute to the value of passed attribute</td>
+ </tr>
+ <tr>
+        <td>"myXmlData" + <CODE>BonitaConstants.XPATH_VAR_SEPARATOR</CODE> + "/root/node" + <CODE>BonitaConstants.XPATH_VAR_SEPARATOR</CODE> + <CODE>BonitaConstants.XPATH_APPEND_FLAG</CODE></td>
+        <td>Not supported</td>
+        <td>Not supported</td>
+        <td>Append a copy of element to node</td>
+        <td>Not supported</td>
+ </tr>
+ </table>
+<P>
+<dl><dt><b>Path parameters:</b></dt><dd><b>activityUUID</b> - the activity UUID.</dd></dl><hr/><table class='info' id='methods-summary'><caption class='TableCaption'>Method Summary</caption><tbody><tr><th class='TableHeader'>Resource</th><th class='TableHeader'>Description</th></tr><tr><td><tt><a href='#POST'>POST /API/runtimeAPI/setVariable/{activityUUID}</a></tt></td><td>
+ Searches for variable with id variableId within the given activity instance
+ with the given UUID.</td></tr></tbody></table><hr/><table class='info' id='methods-details'><caption class='TableCaption'>Method Detail</caption><tbody></tr><tr><td><a name='POST'></a><table class='examples'><tr><td><b>HTTP Example:</b><pre>POST /API/runtimeAPI/setVariable/{activityUUID}
+
+variableValue=…&variableId=…&options=…
+</pre></td><td><b>API Example:</b><p><tt>AbstractRemoteRuntimeAPI.setVariable({'activityUUID': <span class='comment'>/* activityUUID the activity UUID. */</span>,<br/>&nbsp;&nbsp;'variableValue': <span class='comment'>/* variableValue the variable value (can be: a plain <CODE>String</CODE>, a <CODE>Boolean</CODE>,
+ a <CODE>Date</CODE>, a <CODE>Long</CODE>, a <CODE>Double</CODE>, any Java <CODE>Object</CODE>, or any <CODE>Document</CODE> element
+ according to the type of the variable). */</span>,<br/>&nbsp;&nbsp;'variableId': <span class='comment'>/* variableId the variable id. */</span>,<br/>&nbsp;&nbsp;'options': <span class='comment'>/* options the options map (domain, queyList, user) */</span>});</tt></p></td></tr></table><p><p>
+ Searches for variable with id variableId within the given activity instance
+ with the given UUID.<br>
+ If the variable is found within the activity, the given value is set.<br>
+ If the variable is not found within the activity the search is performed
+ within the process instance.<br>
+ If the variable is found within the process instance, the given value is set.
+ </p>
+ <p>
+ <i>For XML data</i><br/>
+ Here is the effect of set variable for XML data:
+ <table border="1">
+ <tr><td></td><td>String</td><td>Document</td><td>Element</td><td>Attribute</td></tr>
+ <tr>
+ 	<td>"myXmlData"</td>
+ 	<td>Stores content of XML String into myXmlData</td>
+ 	<td>Stores a copy of Document in myXMLData</td>
+ 	<td>Not supported</td>
+ 	<td>Not supported</td>
+ </tr>
+ <tr>
+ 	<td>"myXmlData" + {@link BonitaConstants#XPATH_VAR_SEPARATOR} + "/root/node" (or any XPath expression resolving to an element</td>
+ 	<td>Creates Node from string, and replace node by new node</td>
+ 	<td>Not supported</td>
+ 	<td>Replace node by new element</td>
+ 	<td>Adds attribute to node</td>
+ </tr>
+ 	<td>"myXmlData" + {@link BonitaConstants#XPATH_VAR_SEPARATOR} + "/root/node/text()"</td>
+ 	<td>Sets text content of node</td>
+ 	<td>Not supported</td>
+ 	<td>Not supported</td>
+ 	<td>Not supported</td>
+ </tr>
+ <tr>
+ 	<td>"myXmlData" + {@link BonitaConstants#XPATH_VAR_SEPARATOR} + "/root/@attribute"</td>
+ 	<td>Sets the value of attribute. Create it if it does not exist</td>
+ 	<td>Not supported</td>
+ 	<td>Not supported</td>
+ 	<td>Sets the value of attribute to the value of passed attribute</td>
+ </tr>
+ <tr>
+ 	<td>"myXmlData" + {@link BonitaConstants#XPATH_VAR_SEPARATOR} + "/root/node" + {@link BonitaConstants#XPATH_VAR_SEPARATOR} + {@link BonitaConstants#XPATH_APPEND_FLAG}</td>
+ 	<td>Not supported</td>
+ 	<td>Not supported</td>
+ 	<td>Append a copy of element to node</td>
+ 	<td>Not supported</td>
+ </tr>
+ </table></p><dl><dt><b>Output:</b></dt><dd><tt>void</tt></dd><dt><b>Form parameters:</b></dt><dd><b>variableValue</b> - the variable value (can be: a plain {@link String}, a {@link Boolean},
+ a {@link Date}, a {@link Long}, a {@link Double}, any Java {@link Object}, or any {@link Document} element
+ according to the type of the variable).</dd><dd><b>variableId</b> - the variable id.</dd><dd><b>options</b> - the options map (domain, queyList, user)</dd><dt><b>Produces:</b></dt><dd>text/*</dd><dd>application/xml</dd><dt><b>Consumes:</b></dt><dd>application/x-www-form-urlencoded</dd><dd>application/xml</dd></dl></td></tr></tbody></table><hr/><table class='menu'><colgroup><col/><col/></colgroup><tbody><tr><td class='NavBarCell1' colspan='2'><table><tbody><tr><th><a href='../../../../overview-summary.html'>Overview</a></th><th><a href='../../../../overview-index.html'>Index</a></th><th><a href='../../../../index.html'>Root resource</a></th></tr></tbody></table></td></tr><tr><td class='NavBarCell3'>summary: resource | <a href='#methods-summary'>method</a></td><td class='NavBarCell3'>detail: <a href='#methods-details'>method</a></td></tr></table><hr/><div class='footer'>Generated by <a href='http://www.lunatech-labs.com/open-source/jax-doclets'>Lunatech Labs jax-doclets</a> v0.7</div></BODY></HTML>

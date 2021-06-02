@@ -1,0 +1,6 @@
+org.bonitasoft.engine.api
+org.bonitasoft.engine.api.impl
+org.bonitasoft.engine.exception
+org.bonitasoft.engine.home
+org.bonitasoft.engine.http
+org.bonitasoft.engine.util
