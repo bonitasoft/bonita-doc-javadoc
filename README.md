@@ -3,7 +3,7 @@
 ## javadoc
   /api
   
-    7.1 => 7.12
+    7.1 => latest
     
   /bpm_engine
   
@@ -20,4 +20,4 @@
 ## asciidoc-templating groovydoc
   /asciidoc-templating/groovydoc
   
-    7.11.0 => 7.12.3
+    7.11.0 => latest
