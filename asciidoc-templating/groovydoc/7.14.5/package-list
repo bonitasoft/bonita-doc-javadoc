@@ -1,0 +1,7 @@
+org.bonitasoft.asciidoc.templating
+org.bonitasoft.asciidoc.templating.model
+org.bonitasoft.asciidoc.templating.model.application
+org.bonitasoft.asciidoc.templating.model.bdm
+org.bonitasoft.asciidoc.templating.model.organization
+org.bonitasoft.asciidoc.templating.model.page
+org.bonitasoft.asciidoc.templating.model.process
