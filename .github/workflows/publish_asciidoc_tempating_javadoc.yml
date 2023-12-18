@@ -10,7 +10,7 @@ on:
         default: 'x.y.z'
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-22.04
     steps:
       - name: Retrieve secrets from Keeper
@@ -32,7 +32,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Maven Action
-        uses: s4u/setup-maven-action@v1
+        uses: s4u/setup-maven-action@v1.11.0
             
       - name: Setup Maven configuration
         uses: whelk-io/maven-settings-xml-action@v21
