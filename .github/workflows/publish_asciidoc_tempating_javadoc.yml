@@ -1,0 +1,145 @@
+name: Publish Asciidoc Templating Javadoc
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version to publish'
+        type: string
+        required: true
+        default: 'x.y.z'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Retrieve secrets from Keeper
+        id: ksecrets
+        uses: Keeper-Security/ksm-action@master
+        with:
+          keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+          secrets: |
+            YPOU0laqe0V0mq_qwQ_3wg/field/login > env:JFROG_USER
+            YPOU0laqe0V0mq_qwQ_3wg/field/password > env:JFROG_TOKEN
+            
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1
+            
+      - name: Setup Maven configuration
+        uses: whelk-io/maven-settings-xml-action@v21
+        with:
+          repositories: >
+            [
+              {
+                "id": "releases",
+                "name": "releases",
+                "url": "https://bonitasoft.jfrog.io/artifactory/releases",
+                "releases": {
+                  "enabled": "true"
+                },
+                "snapshots": {
+                  "enabled": "false"
+                }
+              },
+              {
+                "id": "snapshots",
+                "name": "snapshots",
+                "url": "https://bonitasoft.jfrog.io/artifactory/snapshots",
+                "releases": {
+                  "enabled": "false"
+                },
+                "snapshots": {
+                  "enabled": "true"
+                }
+              },
+              {
+                 "id": "ossrh-snapshots",
+                 "name": "ossrh-snapshots",
+                 "url" : "https://oss.sonatype.org/content/repositories/snapshots",
+                 "releases": {
+                  "enabled": "false"
+                },
+                "snapshots": {
+                  "enabled": "true"
+                }
+              }
+            ]
+          plugin_repositories: >
+            [
+              {
+                "id": "releases",
+                "name": "releases",
+                "url": "https://bonitasoft.jfrog.io/artifactory/releases",
+                "releases": {
+                  "enabled": "true"
+                },
+                "snapshots": {
+                  "enabled": "false"
+                }
+              },
+              {
+                "id": "snapshots",
+                "name": "snapshots",
+                "url": "https://bonitasoft.jfrog.io/artifactory/snapshots",
+                "releases": {
+                  "enabled": "false"
+                },
+                "snapshots": {
+                  "enabled": "true"
+                }
+              },
+              {
+                 "id": "ossrh-snapshots",
+                 "name": "ossrh-snapshots",
+                 "url" : "https://oss.sonatype.org/content/repositories/snapshots",
+                 "releases": {
+                  "enabled": "false"
+                 },
+                 "snapshots": {
+                  "enabled": "true"
+                }
+              }
+            ]
+          servers: >
+            [
+              {
+                "id": "releases",
+                "username": "${{ env.JFROG_USER }}",
+                "password": "${{ env.JFROG_TOKEN }}"
+              },
+              {
+                "id": "snapshots",
+                "username": "${{ env.JFROG_USER }}",
+                "password": "${{ env.JFROG_TOKEN }}"
+              }
+            ]
+
+      - name: Configure Git User
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+        
+      - name: Download Javadoc
+        run: |
+          mvn -ntp dependency:unpack -Dartifact=com.bonitasoft:bonita-asciidoc-templating:${{ github.event.inputs.version }}:jar:groovydoc -DoutputDirectory=./asciidoc-templating/groovydoc/${{ github.event.inputs.version }}/ -Dproject.basedir=.
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        id: create-pr
+        with:
+          branch: chore/update-asciidoc-templating-javadoc
+          base: master
+          commit-message: "chore(asciidoc-templating): Add ${{ github.event.inputs.version }} javadoc version"
+          title: "[asciidoc-templating] ${{ github.event.inputs.version }} update"
+          body: |
+            Publish asciidoc-templating ${{ github.event.inputs.version }} javadoc.
+     
