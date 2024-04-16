@@ -1,4 +1,4 @@
-name: Publish Asciidoc Templating Javadoc
+name: Publish Runtime Javadoc
 
 on:
   workflow_dispatch:
