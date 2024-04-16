@@ -42,7 +42,7 @@ jobs:
         
       - name: Download Javadoc
         run: |
-          mvn -ntp dependency:unpack -Dartifact=com.bonitasof.engine:bonita-global-javadoc:${{ github.event.inputs.version }}:jar:javadoc -DoutputDirectory=./api/${{ steps.short-version.outputs.value }}/ -Dproject.basedir=.
+          mvn -ntp dependency:unpack -Dartifact=com.bonitasoft.engine:bonita-global-javadoc:${{ github.event.inputs.version }}:jar:javadoc -DoutputDirectory=./api/${{ steps.short-version.outputs.value }}/ -Dproject.basedir=.
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
