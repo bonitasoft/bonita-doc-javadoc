@@ -32,22 +32,28 @@ jobs:
         uses: bonitasoft/git-setup-action@v1
         with:
           keeper-secret-config: ${{ secrets.KSM_CONFIG }}
+      
+      - name: Short version
+        id: short-version
+        run: |
+          shortVersion="$(cut -d '.' -f 1 <<< ${{ github.event.inputs.version }})"."$(cut -d '.' -f 2 <<< ${{ github.event.inputs.version }})"
+          echo "value=${shortVersion//-SNAPSHOT}" >> $GITHUB_OUTPUT
           
         
       - name: Download Javadoc
         run: |
-          mvn -ntp dependency:unpack -Dartifact=com.bonitasoft:bonita-asciidoc-templating:${{ github.event.inputs.version }}:jar:groovydoc -DoutputDirectory=./asciidoc-templating/groovydoc/${{ github.event.inputs.version }}/ -Dproject.basedir=.
+          mvn -ntp dependency:unpack -Dartifact=com.bonitasof.engine:bonita-global-javadoc:${{ github.event.inputs.version }}:jar:javadoc -DoutputDirectory=./api/${{ steps.short-version.outputs.value }}/ -Dproject.basedir=.
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         id: create-pr
         with:
-          branch: chore/update-asciidoc-templating-javadoc
+          branch: chore/update-runtime-javadoc
           base: master
           author: ${{ steps.git-setup.outputs.name}} <${{ steps.git-setup.outputs.email}}>
           committer: ${{ steps.git-setup.outputs.name}} <${{ steps.git-setup.outputs.email}}>
-          commit-message: "chore(asciidoc-templating): Add ${{ github.event.inputs.version }} javadoc version"
-          title: "[asciidoc-templating] ${{ github.event.inputs.version }} update"
+          commit-message: "chore(runtime): Add ${{ github.event.inputs.version }} javadoc version"
+          title: "[runtime] ${{ github.event.inputs.version }} update"
           body: |
-            Publish asciidoc-templating ${{ github.event.inputs.version }} javadoc.
+            Publish runtime ${{ github.event.inputs.version }} javadoc.
      
