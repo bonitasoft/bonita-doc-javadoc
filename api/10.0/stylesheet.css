@@ -2,7 +2,6 @@
  * Javadoc style sheet
  */
 
-@import url('resources/fonts/dejavu.css');
 
 /*
  * Styles for individual HTML elements.
@@ -13,13 +12,12 @@
 
 body {
     background-color:#ffffff;
-    color:#353833;
-    font-family:'DejaVu Sans', Arial, Helvetica, sans-serif;
-    font-size:14px;
+    color: #003355;
+    font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;
+    font-size: 14px;
     margin:0;
     padding:0;
-    height:100%;
-    width:100%;
+    box-sizing: border-box;
 }
 iframe {
     margin:0;
@@ -41,11 +39,11 @@ a[name] {
     color:#353833;
 }
 pre {
-    font-family:'DejaVu Sans Mono', monospace;
-    font-size:14px;
+    font-size:13px;
+    font-weight: 600;
 }
 h1 {
-    font-size:20px;
+    font-size:36px;
 }
 h2 {
     font-size:18px;
@@ -64,9 +62,6 @@ h6 {
 }
 ul {
     list-style-type:disc;
-}
-code, tt {
-    font-family:'DejaVu Sans Mono', monospace;
 }
 :not(h1, h2, h3, h4, h5, h6) > code,
 :not(h1, h2, h3, h4, h5, h6) > tt {
@@ -144,23 +139,23 @@ button {
     }
 }
 .top-nav {
-    background-color:#4D7A97;
+    background-color:#00395A;
     color:#FFFFFF;
     float:left;
     padding:0;
     width:100%;
     clear:right;
     min-height:2.8em;
-    padding-top:10px;
     overflow:hidden;
-    font-size:12px;
+    font-size:1rem;
 }
 .sub-nav {
+    display: flex;
     background-color:#dee3e9;
-    float:left;
     width:100%;
     overflow:hidden;
     font-size:12px;
+    border-bottom: 1px solid #9eadc0;
 }
 .sub-nav div {
     clear:left;
@@ -172,9 +167,11 @@ button {
     padding-top:5px;
 }
 ul.nav-list {
-    display:block;
-    margin:0 25px 0 0;
+    margin:0 auto;
     padding:0;
+    font-size: 15px;
+    height: 100%;
+    width: 960px;
 }
 ul.sub-nav-list {
     float:left;
@@ -184,13 +181,14 @@ ul.sub-nav-list {
 ul.nav-list li {
     list-style:none;
     float:left;
-    padding: 5px 6px;
-    text-transform:uppercase;
+    padding: 0 16px;
+    line-height: 45px;
 }
 .sub-nav .nav-list-search {
     float:right;
-    margin:0 0 0 0;
-    padding:5px 6px;
+    margin:0 auto;
+    padding:1rem;
+    width: 960px;
     clear:none;
 }
 .nav-list-search label {
@@ -205,18 +203,34 @@ ul.sub-nav-list li {
 .top-nav a:link, .top-nav a:active, .top-nav a:visited {
     color:#FFFFFF;
     text-decoration:none;
-    text-transform:uppercase;
+    /* text-transform:uppercase; */
 }
-.top-nav a:hover {
+.top-nav li:hover {
     text-decoration:none;
-    color:#bb7a2a;
-    text-transform:uppercase;
+    background: #DD0033;
 }
-.nav-bar-cell1-rev {
-    background-color:#F8981D;
-    color:#253441;
-    margin: auto 5px;
+.top-nav .nav-bar-cell1-rev {
+    position: relative;
+    background-color:#DD0033;
+    color:#FFFFFF;
+    margin: 0;
 }
+
+.top-nav .nav-bar-cell1-rev:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(221, 0, 51, 0);
+    border-top-color: #DD0033;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
 .skip-nav {
     position:absolute;
     top:auto;
@@ -413,6 +427,7 @@ div.table-tabs > button.table-tab {
 .two-column-summary {
     display: grid;
     grid-template-columns: minmax(15%, max-content) minmax(15%, auto);
+    border-bottom: 1px solid #9eadc0;
 }
 .three-column-summary {
     display: grid;
@@ -446,6 +461,14 @@ div.table-tabs > button.table-tab {
 .summary-table > div, .details-table > div {
     text-align:left;
     padding: 8px 3px 3px 7px;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+.summary-table > div:hover a, .details-table > div:hover {
+    color: #fff;
+}
+.summary-table > div.col-first:hover + div.col-last {
+    background-color: #F09383;
 }
 .col-first, .col-second, .col-last, .col-constructor-name, .col-summary-item-name {
     vertical-align:top;
@@ -453,12 +476,21 @@ div.table-tabs > button.table-tab {
     padding-top:8px;
     padding-bottom:3px;
 }
+
+.col-summary-item-name:hover,
+.col-summary-item-name:hover + .col-last {
+    background-color: #F09383;
+}
+
 .table-header {
     background:#dee3e9;
     font-weight: bold;
 }
 .col-first, .col-first {
     font-size:13px;
+    border: 1px solid #c1c8cb;
+    border-right: 2px solid #fff;
+    background-color: #dde3e9 !important;
 }
 .col-second, .col-second, .col-last, .col-constructor-name, .col-summary-item-name, .col-last {
     font-size:13px;
@@ -496,10 +528,6 @@ div.table-tabs > button.table-tab {
 .deprecated-content {
     margin:0;
     padding:10px 0;
-}
-div.block {
-    font-size:14px;
-    font-family:'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
 }
 .col-last div {
     padding-top:0;
@@ -545,7 +573,7 @@ h1.hidden {
 }
 .block {
     display:block;
-    margin:0 10px 5px 0;
+    margin: 3px 0 0 0;
     color:#474747;
 }
 .deprecated-label, .descfrm-type-label, .implementation-label, .member-name-label, .member-name-link,
@@ -628,8 +656,9 @@ ul.ui-autocomplete  li {
     background-image:url('resources/glass.png');
     background-size:13px;
     background-repeat:no-repeat;
-    background-position:2px 3px;
-    padding-left:20px;
+    background-position:5px 6px;
+    padding-left:25px !important;
+    padding: 5px;
     position:relative;
     right:-18px;
     width:400px;
@@ -644,7 +673,7 @@ ul.ui-autocomplete  li {
     width:16px;
     height:16px;
     position:relative;
-    left:-4px;
+    left:-7px;
     top:-4px;
     font-size:0px;
 }
