@@ -1,6 +1,8 @@
 name: Publish Runtime Javadoc
 
 on:
+  repository_dispatch:
+    types: [new-bonita-release]
   workflow_dispatch:
     inputs:
       version:
@@ -8,6 +10,9 @@ on:
         type: string
         required: true
         default: 'x.y.z'
+
+env:
+  bonita-version: ${{ github.event.inputs.version ||  github.event.client_payload.version }}
 
 jobs:
   publish:
@@ -36,13 +41,12 @@ jobs:
       - name: Short version
         id: short-version
         run: |
-          shortVersion="$(cut -d '.' -f 1 <<< ${{ github.event.inputs.version }})"."$(cut -d '.' -f 2 <<< ${{ github.event.inputs.version }})"
+          shortVersion="$(cut -d '.' -f1,2 <<< ${{ env.bonita-version }})"
           echo "value=${shortVersion//-SNAPSHOT}" >> $GITHUB_OUTPUT
-          
         
       - name: Download Javadoc
         run: |
-          mvn -ntp dependency:unpack -Dartifact=com.bonitasoft.engine:bonita-global-javadoc:${{ github.event.inputs.version }}:jar:javadoc -DoutputDirectory=./api/${{ steps.short-version.outputs.value }}/ -Dproject.basedir=.
+          mvn -ntp dependency:unpack -Dartifact=com.bonitasoft.engine:bonita-global-javadoc:${{ env.bonita-version }}:jar:javadoc -DoutputDirectory=./api/${{ steps.short-version.outputs.value }}/ -Dproject.basedir=.
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -52,8 +56,8 @@ jobs:
           base: master
           author: ${{ steps.git-setup.outputs.name}} <${{ steps.git-setup.outputs.email}}>
           committer: ${{ steps.git-setup.outputs.name}} <${{ steps.git-setup.outputs.email}}>
-          commit-message: "chore(runtime): Add ${{ github.event.inputs.version }} javadoc version"
-          title: "[runtime] ${{ github.event.inputs.version }} update"
+          commit-message: "chore(runtime): Add ${{ env.bonita-version }} javadoc version"
+          title: "[runtime] ${{ env.bonita-version }} update"
           body: |
-            Publish runtime ${{ github.event.inputs.version }} javadoc.
+            Publish runtime ${{ env.bonita-version }} javadoc.
      
