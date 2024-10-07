@@ -23,6 +23,7 @@ org.bonitasoft.engine.api
 org.bonitasoft.engine.api.impl
 org.bonitasoft.engine.api.internal
 org.bonitasoft.engine.api.permission
+org.bonitasoft.engine.api.platform
 org.bonitasoft.engine.api.result
 org.bonitasoft.engine.bdm
 org.bonitasoft.engine.bdm.dao
