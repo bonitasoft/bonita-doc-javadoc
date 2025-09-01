@@ -1,15 +1,17 @@
 name: Publish Runtime Javadoc
 
+run-name: Publish Runtime Javadoc ${{ github.event.inputs.version ||  github.event.client_payload.version }}
+
 on:
   repository_dispatch:
     types: [new-bonita-release]
   workflow_dispatch:
     inputs:
       version:
-        description: 'The version to publish'
+        description: "The version to publish"
         type: string
         required: true
-        default: 'x.y.z'
+        default: "x.y.z"
 
 env:
   bonita-version: ${{ github.event.inputs.version ||  github.event.client_payload.version }}
@@ -17,7 +19,7 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-22.04
-    steps:  
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -25,8 +27,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: 'temurin'
-            
+          distribution: "temurin"
+
       - name: Setup Maven Configuration
         uses: bonitasoft/maven-settings-action@v1
         with:
@@ -37,13 +39,13 @@ jobs:
         uses: bonitasoft/git-setup-action@v1
         with:
           keeper-secret-config: ${{ secrets.KSM_CONFIG }}
-      
+
       - name: Short version
         id: short-version
         run: |
           shortVersion="$(cut -d '.' -f1,2 <<< ${{ env.bonita-version }})"
           echo "value=${shortVersion//-SNAPSHOT}" >> $GITHUB_OUTPUT
-        
+
       - name: Download Javadoc
         run: |
           mvn -ntp dependency:unpack -Dartifact=com.bonitasoft.engine:bonita-global-javadoc:${{ env.bonita-version }}:jar:javadoc -DoutputDirectory=./api/${{ steps.short-version.outputs.value }}/ -Dproject.basedir=.
@@ -60,4 +62,3 @@ jobs:
           title: "[runtime] ${{ env.bonita-version }} update"
           body: |
             Publish runtime ${{ env.bonita-version }} javadoc.
-     
