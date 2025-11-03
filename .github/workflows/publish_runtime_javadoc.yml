@@ -57,7 +57,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         id: create-pr
         with:
-          branch: chore/update-runtime-javadoc
+          branch: chore/update-runtime-javadoc-${{ env.bonita-version }}
           base: master
           author: ${{ steps.git-setup.outputs.name}} <${{ steps.git-setup.outputs.email}}>
           committer: ${{ steps.git-setup.outputs.name}} <${{ steps.git-setup.outputs.email}}>
