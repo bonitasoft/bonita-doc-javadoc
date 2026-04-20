@@ -10,6 +10,7 @@ com.bonitasoft.engine.bpm.process
 com.bonitasoft.engine.bpm.process.impl
 com.bonitasoft.engine.business.application
 com.bonitasoft.engine.business.data
+com.bonitasoft.engine.business.data.impl
 com.bonitasoft.engine.exception
 com.bonitasoft.engine.log
 com.bonitasoft.engine.log.impl
