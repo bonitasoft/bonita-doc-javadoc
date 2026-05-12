@@ -1,5 +1,3 @@
-# javadoc.bonitasoft.com
-
 ## javadoc
   /api
   
