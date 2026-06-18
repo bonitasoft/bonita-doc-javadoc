@@ -1,9 +1,12 @@
 com.bonitasoft.engine.api
 com.bonitasoft.engine.api.converter
 com.bonitasoft.engine.api.impl
+com.bonitasoft.engine.api.permission
 com.bonitasoft.engine.bdm.accesscontrol
 com.bonitasoft.engine.bdm.accesscontrol.builder
 com.bonitasoft.engine.bdm.accesscontrol.model
+com.bonitasoft.engine.bpm.delegation
+com.bonitasoft.engine.bpm.delegation.impl
 com.bonitasoft.engine.bpm.flownode
 com.bonitasoft.engine.bpm.parameter
 com.bonitasoft.engine.bpm.process
@@ -80,6 +83,7 @@ org.bonitasoft.engine.connector
 org.bonitasoft.engine.connector.sap
 org.bonitasoft.engine.core.connector.parser
 org.bonitasoft.engine.core.filter.model
+org.bonitasoft.engine.delegation
 org.bonitasoft.engine.digest
 org.bonitasoft.engine.exception
 org.bonitasoft.engine.expression
